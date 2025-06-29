@@ -1,10 +1,15 @@
 import express from "express";
 import { z } from "zod";
-import JWT_SECRET from "../config.js";
+// import JWT_SECRET from "../config.js";
+
 import { User } from "../db.js";
 import jwt from 'jsonwebtoken';
 import authMiddleware from "../middleware.js";
 import { Account } from "../db.js";
+import dotenv from "dotenv";
+dotenv.config();
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 
 
