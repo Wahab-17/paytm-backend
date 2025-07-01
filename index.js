@@ -21,7 +21,7 @@ await connectDB(); // Connect to MongoDB before server starts
 
 
 
-
+console.log("✅ Mounting /api/v1 routes...");
 app.use("/api/v1",Router);
 
 app.get("/", (req, res) => {

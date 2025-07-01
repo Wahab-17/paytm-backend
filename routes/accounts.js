@@ -5,6 +5,8 @@ import { Account } from "../db.js";
 import { Transaction } from "../db.js";
 import  mongoose  from "mongoose";
 const accountrouter = express.Router();
+console.log("✅ accounts.js router loaded");
+
 accountrouter.get("/balance", authMiddleware, async (req, res) => {
     const account = await Account.findOne({
         userId: req.userId
@@ -62,23 +64,22 @@ accountrouter.post("/transfer", authMiddleware, async (req, res) => {
   }
 });
 
-
 accountrouter.get("/transactions", authMiddleware, async (req, res) => {
+  console.log("✅ /transactions route HIT by user:", req.userId);
   try {
     const transactions = await Transaction.find({
       $or: [{ from: req.userId }, { to: req.userId }]
     })
-      .sort({ timestamp: -1 }) // latest first
+      .sort({ timestamp: -1 })
       .populate("from", "firstName lastName")
       .populate("to", "firstName lastName");
 
+    console.log("✅ Found", transactions.length, "transactions");
     res.json({ transactions });
   } catch (e) {
-    console.error("Fetch transactions error:", e);
+    console.error("❌ Error fetching transactions:", e.message);
     res.status(500).json({ message: "Failed to fetch transactions" });
   }
 });
-
-
 
 export default accountrouter;
