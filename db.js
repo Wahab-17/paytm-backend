@@ -73,6 +73,6 @@ const accountSchema = new mongoose.Schema
 });
 
 
+export const User = mongoose.model("User", userSchema);
 export const Transaction = mongoose.model("Transaction", transactionSchema);
 export const Account = mongoose.model('Account', accountSchema);
-export const User = mongoose.model("User", userSchema);
