@@ -50,11 +50,16 @@ accountrouter.post("/transfer", authMiddleware, async (req, res) => {
 
     console.log("✅ Creating transaction FROM:", fromAccount.userId, "TO:", toAccount.userId, "AMOUNT:", amount);
 
+    // await Transaction.create({
+    //   from: fromAccount.userId,
+    //   to: toAccount.userId,
+    //   amount
+    // });
     await Transaction.create({
-      from: fromAccount.userId,
-      to: toAccount.userId,
-      amount
-    });
+  from: new mongoose.Types.ObjectId(fromAccount.userId),
+  to: new mongoose.Types.ObjectId(toAccount.userId),
+  amount
+});
 
     res.json({ message: "Transfer Successful" });
   } catch (e) {
