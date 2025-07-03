@@ -8,6 +8,8 @@ import { connectDB } from "./dbconnect.js"
 import accountrouter from "./routes/accounts.js"
 import dotenv from "dotenv";
 
+import pingRoute from "./routes/ping.js";
+
 dotenv.config();
 
 
@@ -27,6 +29,8 @@ app.use("/api/v1",Router);
 app.get("/", (req, res) => {
   res.send("✅ Server is up and running!");
 });
+app.use("/ping", pingRoute);
+
 
 
 app.listen(3000);
